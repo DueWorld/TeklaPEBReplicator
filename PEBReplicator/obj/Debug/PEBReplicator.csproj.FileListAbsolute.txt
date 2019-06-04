@@ -1,0 +1,9 @@
+E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\obj\Debug\PEBReplicator.csprojResolveAssemblyReference.cache
+E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\obj\Debug\PEBReplicator.Properties.Resources.resources
+E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\obj\Debug\PEBReplicator.TeklaForm.resources
+E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\obj\Debug\PEBReplicator.csproj.GenerateResource.Cache
+E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\bin\Debug\Tekla Structures Addin.exe.config
+E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\bin\Debug\Tekla Structures Addin.exe
+E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\bin\Debug\Tekla Structures Addin.pdb
+E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\obj\Debug\Tekla Structures Addin.exe
+E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\obj\Debug\Tekla Structures Addin.pdb

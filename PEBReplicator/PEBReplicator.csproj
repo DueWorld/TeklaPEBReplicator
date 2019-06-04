@@ -75,6 +75,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Frame Types\GableFrame\GableFrame.cs" />
+    <Compile Include="Frame Types\MonoSlope\MonoSlopeFrame.cs" />
+    <Compile Include="Frame Types\MonoSlope\MonoSlopeSetting.cs" />
+    <Compile Include="Frame Types\Radial\RadialFrame.cs" />
+    <Compile Include="Frame Types\Radial\RadialFrameSetting.cs" />
+    <Compile Include="Geometry\FrameGeoShapes\GableFrameGeoShape.cs" />
+    <Compile Include="Frame Types\GableFrame\GableSetting.cs" />
+    <Compile Include="Geometry\FrameGeoShapes\MonoSlopeGeoShape.cs" />
+    <Compile Include="Geometry\FrameGeoShapes\RadialGeoShape.cs" />
+    <Compile Include="PEBComponents\FlangedBraceComponent.cs" />
+    <Compile Include="PEBComponents\PEBComponent.cs" />
+    <Compile Include="PEBComponents\PurlinDrawer.cs" />
     <Compile Include="TeklaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,7 +103,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TeklaForm.resx">
+      <DependentUpon>TeklaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -104,6 +120,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r001.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r002.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r003.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
