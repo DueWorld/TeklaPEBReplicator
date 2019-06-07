@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PEBReplicator.Frame_Types.Radial
+namespace PEBReplicator.Frame_Types
 {
     class RadialFrame
     {

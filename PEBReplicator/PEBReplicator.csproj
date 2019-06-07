@@ -43,6 +43,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tekla.GeometryExtender">
+      <HintPath>..\..\TeklaAPIUtilities\TeklaGeometryExtender\bin\Debug\Tekla.GeometryExtender.dll</HintPath>
+    </Reference>
     <Reference Include="Tekla.Structures, Version=21.1.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files\Tekla Structures\21.1\nt\bin\plugins\Tekla.Structures.dll</HintPath>
@@ -75,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Frame Types\FramingOptions\FramingOptions.cs" />
     <Compile Include="Frame Types\GableFrame\GableFrame.cs" />
     <Compile Include="Frame Types\MonoSlope\MonoSlopeFrame.cs" />
     <Compile Include="Frame Types\MonoSlope\MonoSlopeSetting.cs" />
@@ -84,13 +88,16 @@
     <Compile Include="Frame Types\GableFrame\GableSetting.cs" />
     <Compile Include="Geometry\FrameGeoShapes\MonoSlopeGeoShape.cs" />
     <Compile Include="Geometry\FrameGeoShapes\RadialGeoShape.cs" />
-    <Compile Include="PEBComponents\FlangedBraceComponent.cs" />
+    <Compile Include="PEBComponents\PEBFlangedBraceComponent.cs" />
+    <Compile Include="PEBComponents\PEBBplComponent.cs" />
     <Compile Include="PEBComponents\PEBComponent.cs" />
+    <Compile Include="PEBComponents\PEBMemberComponent.cs" />
+    <Compile Include="PEBComponents\PEBSpliceComponent.cs" />
     <Compile Include="PEBComponents\PurlinDrawer.cs" />
-    <Compile Include="TeklaForm.cs">
+    <Compile Include="PresentationLayer\TeklaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TeklaForm.Designer.cs">
+    <Compile Include="PresentationLayer\TeklaForm.Designer.cs">
       <DependentUpon>TeklaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -105,7 +112,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="TeklaForm.resx">
+    <EmbeddedResource Include="PresentationLayer\TeklaForm.resx">
       <DependentUpon>TeklaForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

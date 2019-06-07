@@ -1,0 +1,631 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tekla.GeometryExtender</name>
+    </assembly>
+    <members>
+        <member name="T:TeklaGeometryExtender.FacePropertyExtender">
+            <summary>
+            Class extending the Face class for property objects.
+            </summary>
+        </member>
+        <member name="T:TeklaGeometryExtender.FaceProperties">
+            <summary>
+            Class extending the face for more properties.
+            </summary>
+        </member>
+        <member name="F:TeklaGeometryExtender.FaceProperties.face">
+            <summary>
+            Face given.
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.FaceProperties.FacePointsGlobal">
+            <summary>
+            Gets all the edge points of the face in the global workplane.
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.FaceProperties.FacePointsLocal">
+            <summary>
+            Gets all the edge points of the face in the local workplane.
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.FaceProperties.FaceOriginGlobal">
+            <summary>
+            Gets the first point on a face in the global workplane.
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.FaceProperties.FaceOriginLocal">
+            <summary>
+            Gets the first point on a face in the local workplane.
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.FaceProperties.#ctor(Tekla.Structures.Solid.Face)">
+            <summary>
+            Instantiates an object from a given face.
+            </summary>
+            <param name="face"></param>
+        </member>
+        <member name="M:TeklaGeometryExtender.FaceProperties.GetPointsFromFaceGlobal">
+            <summary>
+            Returns a list of points from a given face.
+            These points will be given in the workplane that face was picked with.
+            </summary>
+            <param name="face"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.FaceProperties.GetPointsFromFaceLocal">
+            <summary>
+            Returns a list of points from a given face.
+            These points will be given in the workplane that face was picked with.
+            </summary>
+            <param name="face"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.FaceProperties.GetPointOnFaceLocal">
+            <summary>
+            Gets the first point on a face in the local workplane.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.FaceProperties.GetPointOnFaceGlobal">
+            <summary>
+            Gets the first point on a face in the global workplane.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.FaceProperties.GetGeoPlaneFromFace">
+            <summary>
+            Retrieves the geometric plane the current face is inscribed into.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:TeklaGeometryExtender.GeometryUtils">
+            <summary>
+            This is a static class of matchers to ease the dealing of Geometry3D Name space in Tekla Structures.
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.GeometryUtils.GetLength(Tekla.Structures.Model.Beam)">
+            <summary>
+            Gets the length of a beam.
+            </summary>
+            <param name="teklaBeam"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.GeometryUtils.IsFlipable(Tekla.Structures.Model.Beam)">
+            <summary>
+            Inquires whether this beam's free toe will flip or not when the rotation is changed.
+            Profiles with unsymmetrical geometry according to the web (centroid is not lying on the body of the beam).
+            will only flip.
+            </summary>
+            <param name="beam"></param>
+            <param name="teklaModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.GeometryUtils.GetPartsFromComponent(Tekla.Structures.Model.BaseComponent)">
+            <summary>
+            
+            </summary>
+            <param name="component"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.GeometryUtils.IsRotationAlligned(Tekla.Structures.Model.Position.RotationEnum,Tekla.Structures.Model.Position.RotationEnum)">
+            <summary>
+            Inquires if the rotation gives are alligned together. Front and Back, Top and Below.
+            </summary>
+            <param name="rotation1"></param>
+            <param name="rotation2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.GeometryUtils.ReverseVector(Tekla.Structures.Geometry3d.Vector)">
+            <summary>
+            Flips a vector by multiplying by a negative number.
+            </summary>
+            <param name="vector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.GeometryUtils.IsPointOnLineSegment(Tekla.Structures.Geometry3d.Point,Tekla.Structures.Geometry3d.LineSegment)">
+            <summary>
+            Check if the selected point on a specific line segment
+            </summary>
+            <param name="point"></param>
+            <param name="segment"></param>
+        </member>
+        <member name="M:TeklaGeometryExtender.GeometryUtils.ToVector(Tekla.Structures.Geometry3d.Point)">
+            <summary>
+            Converts a point into a vector.
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.GeometryUtils.ToPoint(Tekla.Structures.Geometry3d.Vector)">
+            <summary>
+            Converts the vector into a point.
+            </summary>
+            <param name="vector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.GeometryUtils.GetDistance(Tekla.Structures.Geometry3d.Point,Tekla.Structures.Geometry3d.Point)">
+            <summary>
+            Gets the distance between two points in 3D
+            </summary>
+            <param name="p1"></param>
+            <param name="p2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.GeometryUtils.ToDegree(System.Double)">
+            <summary>
+            Converts an angle from radians to degree.
+            </summary>
+            <param name="angleInRad"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.GeometryUtils.ToRad(System.Double)">
+            <summary>
+            Converts an angle to radians from degree.
+            </summary>
+            <param name="angleInDeg"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TeklaGeometryExtender.PartFunctionExtender">
+            <summary>
+            Class extending the part for functionality.
+            </summary>
+        </member>
+        <member name="T:TeklaGeometryExtender.PartFunctions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartFunctions.EqualsId(Tekla.Structures.Model.Part)">
+            <summary>
+            Inquires about the equality of the parts according to their identifier.
+            </summary>
+            <param name="part"></param>
+            <param name="otherPart"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartFunctions.SetPlane(TeklaGeometryExtender.ReferencePlane)">
+            <summary>
+            Sets the workplane on this part.
+            </summary>
+            <param name="refPlane"></param>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartFunctions.IntersectWithPart(Tekla.Structures.Model.Part)">
+            <summary>
+            Get intersection line between two parts main planes
+            </summary>
+            <param name="main"></param>
+            <param name="secondary"></param>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartFunctions.GenerateLine">
+            <summary>
+            Returns a Line from part coordinate system origin and xAxis
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:TeklaGeometryExtender.PartPropertyExtender">
+            <summary>
+            Class extending the part for property objects..
+            </summary>
+        </member>
+        <member name="T:TeklaGeometryExtender.PartProperties">
+            <summary>
+            Class extending the part for more properties.
+            </summary>
+        </member>
+        <member name="F:TeklaGeometryExtender.PartProperties.part">
+            <summary>
+            The given part.
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartProperties.#ctor(Tekla.Structures.Model.Part)">
+            <summary>
+            Instantiates an object of part properties from a part.
+            </summary>
+            <param name="part"></param>
+        </member>
+        <member name="P:TeklaGeometryExtender.PartProperties.Part">
+            <summary>
+            The part which will have all the properties.
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.PartProperties.MaxBoundingGlobal">
+            <summary>
+            Gets the maximum bounding point on the part bounding box.
+            The point is defined in the global workplane settings.
+            The point does not deviate from the actual solid when it's inclined in the global plane. 
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.PartProperties.MaxBoundingLocal">
+            <summary>
+            Gets the maximum bounding point on the part bounding box.
+            The point is defined in the current workplane settings.
+            The point does not deviate from the actual solid when it's inclined in the global plane.  
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.PartProperties.MinBoundingLocal">
+            <summary>
+            Gets the minimum bounding point on the part bounding box.
+            The point is defined in the current workplane settings.
+            The point does not deviate from the actual solid when it's inclined in the global plane. 
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.PartProperties.MinBoundingGlobal">
+            <summary>
+            Gets the minimum bounding point on the part bounding box.
+            The point is defined in the global workplane settings.
+            The point does not deviate from the actual solid when it's inclined in the global plane. 
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.PartProperties.Width">
+            <summary>
+            Returns the distance between the face with minimum Z value locally and the face with maximum Z value locally
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.PartProperties.Thickness">
+            <summary>
+            returns the smallest distance between the parallel faces with different Z locally 
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.PartProperties.Height">
+            <summary>
+            returns the max distance between parallel faces with different local Y
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.PartProperties.Edges">
+            <summary>
+            Returns a list of part solid edges
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.PartProperties.Faces">
+            <summary>
+            Returns a list of part faces in no particular order
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.PartProperties.XFaces">
+            <summary>
+            Return a List of Parallel Faces with a varied Local X defind in the current plane
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.PartProperties.YFaces">
+            <summary>
+            Return a List of Parallel Faces with a varied Local Y defind in the current plane
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.PartProperties.ZFaces">
+            <summary>
+            Return a List of Parallel Faces with a varied Local Z defind in the current plane
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartProperties.GetEdgeSegments">
+            <summary>
+            Gets all the edges of the part in the form of line segments.
+            </summary>
+            <param name="part"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartProperties.GetFaces">
+            <summary>
+            Gets all faces from a part.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartProperties.GetFaces(TeklaGeometryExtender.ParralelFacesVaried)">
+            <summary>
+            Get Faces Parallel to a Beam local inputed
+            </summary>
+            <param name="mode">X or Y or Z to determind the parallel face to choosen mode</param>
+            <returns>List of Faces parallel to chosen Mode, Sorted from the minimum value to maximum value</returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartProperties.GetFirstFaceWhere(System.Func{Tekla.Structures.Solid.Face,System.Boolean})">
+            <summary>
+            Gets the first face that satisfies the condition in the current workplane.
+            </summary>
+            <param name="part"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartProperties.GetFacesWhere(System.Func{Tekla.Structures.Solid.Face,System.Boolean})">
+            <summary>
+            Gets all the faces that satisfy the condition in the current workplane.
+            </summary>
+            <param name="part"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartProperties.LocalMaxSurfaceBounding">
+            <summary>
+            Gets the maximum bounding point on the part bounding box.
+            The point is defined in the global workplane settings.
+            The point does not deviate from the actual solid when it's inclined in the global plane. 
+            </summary>
+            <param name="part"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartProperties.GlobalMaxSurfaceBounding">
+            <summary>
+            Gets the maximum bounding point on the part bounding box.
+            The point is defined in the current workplane settings.
+            The point does not deviate from the actual solid when it's inclined in the global plane. 
+            </summary>
+            <param name="part"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartProperties.GlobalMinSurfaceBoundingPoint">
+            <summary>
+            Gets the minimum bounding point on the part bounding box.
+            The point is defined in the global workplane settings.
+            The point does not deviate from the actual solid when it's inclined in the global plane. 
+            </summary>
+            <param name="part"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartProperties.LocalMinSurfaceBoundingPoint">
+            <summary>
+            Gets the minimum bounding point on the part bounding box.
+            The point is defined in the current workplane settings.
+            The point does not deviate from the actual solid when it's inclined in the global plane. 
+            </summary>
+            <param name="part"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartProperties.GetThickness">
+            <summary>
+            get the smallest distance between parallel faces with different local Z value
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartProperties.GetWidth">
+            <summary>
+            gets the max distance between parallel faces with different local Z value
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.PartProperties.GetHeight">
+            <summary>
+            gets the max distance between parallel faces with different local Y value
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:TeklaGeometryExtender.ReferencePlane">
+            <summary>
+            Enumerator for the reference plane which the coordinate system required to be sat was defined in.
+            </summary>
+        </member>
+        <member name="T:TeklaGeometryExtender.Transformation">
+            <summary>
+            Class dealing with setting and getting transformation planes and coordinate systems.
+            </summary>
+        </member>
+        <member name="F:TeklaGeometryExtender.Transformation.teklaModel">
+            <summary>
+            A static instance of the Model
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.GetCurrentPlane">
+            <summary>
+            Gets the current transformation plane.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.GetCurrentCorSystem">
+            <summary>
+            Gets the coordinate system of current transformation plane
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.TransformFromCurrentToGlobal(Tekla.Structures.Geometry3d.CoordinateSystem)">
+            <summary>
+            Transforms a coordinate system from the current workplane setting to the global setting.
+            </summary>
+            <param name="coordSys"></param>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.TransformFromGlobalToCurrent(Tekla.Structures.Geometry3d.CoordinateSystem)">
+            <summary>
+            Transforms a coordinate system from the global workplane setting to the current setting.
+            </summary>
+            <param name="coordSys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.TransformPointToGlobal(Tekla.Structures.Geometry3d.Point)">
+            <summary>
+            Converts a locally defined point into a globally defined point.
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.TransformVectorToGlobal(Tekla.Structures.Geometry3d.Vector)">
+            <summary>
+            Converts a locally defined vector into a globally defined vector.
+            </summary>
+            <param name="vector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.ToGlobal(Tekla.Structures.Geometry3d.Point)">
+            <summary>
+            Converts a locally defined point into a globally defined point.
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.ToGlobal(Tekla.Structures.Geometry3d.Vector)">
+            <summary>
+            Converts a locally defined vector into a globally defined vector.
+            </summary>
+            <param name="vector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.ConvertPointToLocal(Tekla.Structures.Geometry3d.Point)">
+            <summary>
+            Converts a globally defined point into a locally defined point.
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.ConvertVectorToLocal(Tekla.Structures.Geometry3d.Vector)">
+            <summary>
+            Converts a globally defined vector into a locally defined vector.
+            </summary>
+            <param name="vector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.ToLocal(Tekla.Structures.Geometry3d.Point)">
+            <summary>
+            Converts a globally defined point into a locally defined point.
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.ToLocal(Tekla.Structures.Geometry3d.Vector)">
+            <summary>
+            Converts a globally defined vector into a locally defined vector.
+            </summary>
+            <param name="vector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.SetPlane(Tekla.Structures.Geometry3d.CoordinateSystem,TeklaGeometryExtender.ReferencePlane)">
+            <summary>
+            Transforms the workplane into the given coordinate system.
+            </summary>
+            <param name="coordSystem"></param>
+            <param name="refPlane">The workplane this coordinate system was created in.</param>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.SetPlane(Tekla.Structures.Model.Part,TeklaGeometryExtender.ReferencePlane)">
+            <summary>
+            Sets the plane on the given part.
+            </summary>
+            <param name="part"></param>
+            <param name="refPlane">The workplane this part was selected in.</param>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.SetPlane">
+            <summary>
+            Transforms the current workplane into the global workplane.
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.SetPlane(Tekla.Structures.Model.Beam,Tekla.Structures.Model.Position.RotationEnum)">
+            <summary>
+            Sets the workplane on the selected position face of the beam.
+            </summary>
+            <param name="beam"></param>
+            <param name="rotationalPosition"></param>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.SetPlane(Tekla.Structures.Model.Beam)">
+            <summary>
+            Sets the work plane on the front face of the beam.
+            </summary>
+            <param name="beam"></param>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.SetPlane(Tekla.Structures.Model.TransformationPlane,TeklaGeometryExtender.ReferencePlane)">
+            <summary>
+            Transforms the current WorkPlane into the given transformation plane.
+            </summary>
+            <param name="transformationPlane"></param>
+            <param name="refPlane">The workplane this transformation was defined in.</param>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.SetPrimitiveXZ">
+            <summary>
+            Sets the model workplane to the primitive XZ plane
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.SetPrimitiveYZ">
+            <summary>
+            Sets the model workplane to the primitive XY plane
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.GetFrontFaceWorkPlane(Tekla.Structures.Model.Beam)">
+            <summary>
+            Gets the front face workplane in the global coordinate system.
+            </summary>
+            <param name="beam"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.GetTopFaceWorkPlane(Tekla.Structures.Model.Beam)">
+            <summary>
+            Gets the top face workplane in the global coordinate system.
+            </summary>
+            <param name="beam"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.GetBelowFaceWorkPlane(Tekla.Structures.Model.Beam)">
+            <summary>
+            Returns the workplane of the Below face of a part in the global coordinate system.
+            </summary>
+            <param name="beam"></param>
+            <param name="teklaModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.GetBackFaceWorkPlane(Tekla.Structures.Model.Beam)">
+            <summary>
+            Gets the back face workplane in the global coordinate system.
+            </summary>
+            <param name="part"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.GetWorkPlane(Tekla.Structures.Model.Beam,Tekla.Structures.Model.Position.RotationEnum)">
+            <summary>
+            Returns the workplane of the selected of a part in the global coordinate system.
+            </summary>
+            <param name="beam"></param>
+            <param name="rotationalPosition"></param>
+            <param name="teklaModel"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TeklaGeometryExtender.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:TeklaDebugging.DebugingUtils">
+            <summary>
+            A static class for debugging in Tekla Structures.
+            </summary>
+        </member>
+        <member name="M:TeklaDebugging.DebugingUtils.DrawPoint(Tekla.Structures.Geometry3d.Point,System.String)">
+            <summary>
+            Draws a point with a string.
+            </summary>
+            <param name="point"></param>
+            <param name="text"></param>
+        </member>
+        <member name="M:TeklaDebugging.DebugingUtils.DrawLine(Tekla.Structures.Geometry3d.Point,Tekla.Structures.Geometry3d.Point)">
+            <summary>
+            Draws a line in Tekla Structures model.
+            </summary>
+            <param name="startPoint"></param>
+            <param name="endPoint"></param>
+        </member>
+        <member name="M:TeklaDebugging.DebugingUtils.ArrowVector(Tekla.Structures.Geometry3d.Vector,System.Double)">
+            <summary>
+            Draws an arrow using a vector in Tekla Structures.
+            </summary>
+            <param name="vector"></param>
+            <param name="radians"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeklaDebugging.DebugingUtils.DrawVector(Tekla.Structures.Geometry3d.Point,Tekla.Structures.Geometry3d.Vector,Tekla.Structures.Model.UI.Color)">
+            <summary>
+            Draws an arrow from a start point and a vector.
+            </summary>
+            <param name="startPoint"></param>
+            <param name="vector"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:TeklaDebugging.DebugingUtils.DrawVectorFromFace(Tekla.Structures.Solid.Face)">
+            <summary>
+            Draws an arrow from the average point of the given face.
+            </summary>
+            <param name="f"></param>
+        </member>
+    </members>
+</doc>

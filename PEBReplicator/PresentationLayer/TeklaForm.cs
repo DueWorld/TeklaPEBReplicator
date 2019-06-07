@@ -3,17 +3,24 @@
     using System;
     using System.Collections.Generic;
     using System.Collections;
-    using System.Linq;
     using System.Windows.Forms;
     using Tekla.Structures.Geometry3d;
     using Tekla.Structures.Model.UI;
-    using Tekla.Structures;
     using Tekla.Structures.Model;
     using Tekla.Structures.Dialog;
     using Tekla.Structures.Dialog.UIControls;
+    using PEBReplicator.Frame_Types;
+    using static TeklaGeometryExtender.Transformation;
 
+    /// <summary>
+    /// Main Form.
+    /// </summary>
     public partial class TeklaForm : ApplicationFormBase
     {
+        private Model teklaModel;
+        private Vector alongFrameVector;
+        private Vector replicationVector;
+
         private List<Control> radialRelated;
         private List<Control> monoSlopeRelated;
         private List<Control> gableRelated;
@@ -35,6 +42,7 @@
 
         public TeklaForm()
         {
+            teklaModel = new Model();
             InitializeComponent();
             PopulateControls();
             InitializeFrameProp();
@@ -211,7 +219,7 @@
             this.cmbBoxRft2SplAFile4.Items.AddRange(PEBSpliceConnectionAttrs.ToArray());
             this.cmbBoxRft2SplAFile6.Items.AddRange(PEBSpliceConnectionAttrs.ToArray());
             this.cmbBoxRft2SplAFile5.Items.AddRange(PEBSpliceConnectionAttrs.ToArray());
-
+            this.cmbBoxRidgeSplice.Items.AddRange(PEBSpliceConnectionAttrs.ToArray());
             this.cmbBoxCol2BplAFile.Items.AddRange(PEBBasePlateAttrs.ToArray());
             this.cmbBoxCol1BplAFile.Items.AddRange(PEBBasePlateAttrs.ToArray());
 
@@ -302,6 +310,7 @@
             this.cmbBoxSpliceNoCol2.SelectedIndex = 0;
             this.cmbBoxSpliceNoRft1.SelectedIndex = 0;
             this.cmbBoxSpliceNoRft2.SelectedIndex = 0;
+            this.cmbBoxRidgeSplice.SelectedIndex = 0;
             #endregion
         }
 
@@ -364,51 +373,214 @@
             }
         }
 
-        private void btnCol1_Click(object sender, EventArgs e)
+        private void InitializeFrameProp()
         {
-            groupBoxCol1.Visible = true;
-            groupBoxCol2.Visible = false;
-            groupBoxRf2.Visible = false;
-            groupBoxRf1.Visible = false;
+            groupBoxCol2.Location = new System.Drawing.Point(39, 380);
+            groupBoxRf2.Location = new System.Drawing.Point(40, 380);
+            groupBoxRf1.Location = new System.Drawing.Point(41, 380);
             groupBoxCol1.Location = new System.Drawing.Point(161, 6);
         }
 
-        private void InitializeFrameProp()
+        private void btnCol1_Click(object sender, EventArgs e)
         {
-            groupBoxCol1.Visible = true;
-            groupBoxCol2.Visible = false;
-            groupBoxRf2.Visible = false;
-            groupBoxRf1.Visible = false;
+            groupBoxCol2.Location = new System.Drawing.Point(39, 380);
+            groupBoxRf2.Location = new System.Drawing.Point(40, 380);
+            groupBoxRf1.Location = new System.Drawing.Point(41, 380);
             groupBoxCol1.Location = new System.Drawing.Point(161, 6);
         }
 
         private void btnRft1_Click(object sender, EventArgs e)
         {
-            groupBoxCol1.Visible = false;
-            groupBoxCol2.Visible = false;
-            groupBoxRf2.Visible = false;
-            groupBoxRf1.Visible = true;
+            groupBoxCol1.Location = new System.Drawing.Point(38, 380);
+            groupBoxCol2.Location = new System.Drawing.Point(39, 380);
+            groupBoxRf2.Location = new System.Drawing.Point(40, 380);
             groupBoxRf1.Location = new System.Drawing.Point(161, 6);
         }
 
         private void btnRft2_Click(object sender, EventArgs e)
         {
-            groupBoxCol1.Visible = false;
-            groupBoxCol2.Visible = false;
-            groupBoxRf2.Visible = true;
-            groupBoxRf1.Visible = false;
+            groupBoxCol1.Location = new System.Drawing.Point(38, 380);
+            groupBoxCol2.Location = new System.Drawing.Point(38, 380);
+            groupBoxRf1.Location = new System.Drawing.Point(38, 380);
             groupBoxRf2.Location = new System.Drawing.Point(161, 6);
 
         }
 
         private void btnCol2_Click(object sender, EventArgs e)
         {
-            groupBoxCol1.Visible = false;
-            groupBoxCol2.Visible = true;
-            groupBoxRf2.Visible = false;
-            groupBoxRf1.Visible = false;
+            groupBoxCol1.Location = new System.Drawing.Point(38, 380);
+            groupBoxRf2.Location = new System.Drawing.Point(40, 380);
+            groupBoxRf1.Location = new System.Drawing.Point(38, 380);
             groupBoxCol2.Location = new System.Drawing.Point(161, 6);
 
+        }
+
+        private FramingOptions PopulateFramingOption(Point origin)
+        {
+            #region Instantiating lists
+            List<string> col1MemberAttribs = new List<string>()
+            { cmbBoxCol1AFile1.Text, cmbBoxCol1AFile2.Text,
+                cmbBoxCol1AFile3.Text, cmbBoxCol1AFile4.Text };
+
+            List<string> col1SpliceAttribs = new List<string>()
+            {cmbBoxCol1SplAFile1.Text,cmbBoxCol1SplAFile2.Text,cmbBoxCol1SplAFile3.Text};
+
+            List<double> col1SpliceLengths = new List<double>()
+            { double.Parse(txtBoxCol1SplLn1.Text),double.Parse(txtBoxCol1SplLn2.Text),double.Parse(txtBoxCol1SplLn3.Text)};
+
+            List<string> col2MemberAttribs = new List<string>()
+            { cmbBoxCol2AFile1.Text, cmbBoxCol2AFile2.Text,
+                cmbBoxCol2AFile3.Text, cmbBoxCol2AFile4.Text };
+
+            List<string> col2SpliceAttribs = new List<string>()
+            {cmbBoxCol2SplAFile1.Text,cmbBoxCol2SplAFile2.Text,cmbBoxCol2SplAFile3.Text};
+
+            List<double> col2SpliceLengths = new List<double>()
+            { double.Parse(txtBoxCol2SplLn1.Text),double.Parse(txtBoxCol2SplLn2.Text),double.Parse(txtBoxCol2SplLn3.Text)};
+
+
+            List<string> raf1MemberAttribs = new List<string>()
+            { cmbBoxRft1AFile1.Text,cmbBoxRft1AFile2.Text,cmbBoxRft1AFile3.Text,cmbBoxRft1AFile4.Text,
+                cmbBoxRft1AFile5.Text,cmbBoxRft1AFile6.Text,cmbBoxRft1AFile7.Text};
+
+            List<string> raf1SpliceAttribs = new List<string>()
+            { cmbBoxRft1SplAFile1.Text,cmbBoxRft1SplAFile2.Text,cmbBoxRft1SplAFile3.Text,
+              cmbBoxRft1SplAFile4.Text,cmbBoxRft1SplAFile5.Text,cmbBoxRft1SplAFile6.Text};
+
+
+            List<double> raf1SpliceLengths = new List<double>()
+            { double.Parse(txtBoxRft1SplLn1.Text),double.Parse(txtBoxRft1SplLn2.Text),double.Parse(txtBoxRft1SplLn3.Text),
+              double.Parse(txtBoxRft1SplLn4.Text),double.Parse(txtBoxRft1SplLn5.Text),double.Parse(txtBoxRft1SplLn6.Text)};
+
+
+            List<string> raf2MemberAttribs = new List<string>()
+            { cmbBoxRft2AFile1.Text,cmbBoxRft2AFile2.Text,cmbBoxRft2AFile3.Text,cmbBoxRft2AFile4.Text,
+              cmbBoxRft2AFile5.Text,cmbBoxRft2AFile6.Text,cmbBoxRft2AFile7.Text};
+
+            List<string> raf2SpliceAttribs = new List<string>()
+            { cmbBoxRft2SplAFile1.Text,cmbBoxRft2SplAFile2.Text,cmbBoxRft2SplAFile3.Text,
+              cmbBoxRft2SplAFile4.Text,cmbBoxRft2SplAFile5.Text,cmbBoxRft2SplAFile6.Text};
+
+
+            List<double> raf2SpliceLengths = new List<double>()
+            { double.Parse(txtBoxRft2SplLn1.Text),double.Parse(txtBoxRft2SplLn2.Text),double.Parse(txtBoxRft2SplLn3.Text),
+              double.Parse(txtBoxRft2SplLn4.Text),double.Parse(txtBoxRft2SplLn5.Text),double.Parse(txtBoxRft2SplLn6.Text)};
+
+            #endregion
+
+            #region Modifying lists
+            int col1SpliceQuantity = int.TryParse(cmbBoxSpliceNoCol1.Text, out int quantity1) ? quantity1 : 0;
+            int col2SpliceQuantity = int.TryParse(cmbBoxSpliceNoCol2.Text, out int quantity2) ? quantity2 : 0;
+            int raf1SpliceQuantity = int.TryParse(cmbBoxSpliceNoRft1.Text, out int quantity3) ? quantity3 : 0;
+            int raf2SpliceQuantity = int.TryParse(cmbBoxSpliceNoRft2.Text, out int quantity4) ? quantity4 : 0;
+
+
+            col1MemberAttribs.RemoveRange(col1SpliceQuantity + 1, col1MemberAttribs.Count - (col1SpliceQuantity + 1));
+            col1SpliceAttribs.RemoveRange(col1SpliceQuantity, col1SpliceAttribs.Count - col1SpliceQuantity);
+            col1SpliceLengths.RemoveRange(col1SpliceQuantity, col1SpliceLengths.Count - col1SpliceQuantity);
+
+            col2MemberAttribs.RemoveRange(col2SpliceQuantity + 1, col2MemberAttribs.Count - (col2SpliceQuantity + 1));
+            col2SpliceAttribs.RemoveRange(col2SpliceQuantity, col2SpliceAttribs.Count - col2SpliceQuantity);
+            col2SpliceLengths.RemoveRange(col2SpliceQuantity, col2SpliceLengths.Count - col2SpliceQuantity);
+
+            raf1MemberAttribs.RemoveRange(raf1SpliceQuantity + 1, raf1MemberAttribs.Count - (raf1SpliceQuantity + 1));
+            raf1SpliceAttribs.RemoveRange(raf1SpliceQuantity, raf1SpliceAttribs.Count - raf1SpliceQuantity);
+            raf1SpliceLengths.RemoveRange(raf1SpliceQuantity, raf1SpliceLengths.Count - raf1SpliceQuantity);
+
+            raf2MemberAttribs.RemoveRange(raf2SpliceQuantity + 1, raf2MemberAttribs.Count - (raf2SpliceQuantity + 1));
+            raf2SpliceAttribs.RemoveRange(raf2SpliceQuantity, raf2SpliceAttribs.Count - raf2SpliceQuantity);
+            raf2SpliceLengths.RemoveRange(raf2SpliceQuantity, raf2SpliceLengths.Count - raf2SpliceQuantity);
+            #endregion
+
+            FramingOptions options = new FramingOptions()
+            {
+                FrameVector = alongFrameVector,
+                ReplicationVector = replicationVector,
+                Col1BplAttrib = cmbBoxCol1BplAFile.Text,
+                Col1KneeAttrib = cmbBoxCol1KneeAFile.Text,
+                Col1SpliceNumber = col1SpliceQuantity,
+                Col2BplAttrib = cmbBoxCol2BplAFile.Text,
+                Col2KneeAttrib = cmbBoxCol2KneeAFile.Text,
+                Col2SpliceNumber = col2SpliceQuantity,
+                Origin = origin,
+                Slope = double.Parse(txtBoxSlope.Text),
+                GableSteelLineFullLength = double.Parse(txtBoxGblFrmLength.Text),
+                GableSteelLineHalfLength = double.Parse(txtBoxGblHalfRft.Text),
+                GableSteelLineColumnHeight = double.Parse(txtBoxGblColHt.Text),
+                GableColumnOffset = double.Parse(txtBoxGblColOffst.Text),
+                GableRafterOffset = double.Parse(txtBoxGblRftOffst.Text),
+                GableLeftBaseOffset = double.Parse(txtBoxGblLftBsOffst.Text),
+                GableRightBaseOffset = double.Parse(txtBoxGblRghtBsOffst.Text),
+                RidgeSpliceAttrib = cmbBoxRidgeSplice.Text,
+
+                MonoSlopeSteelLineFullLength = double.Parse(txtBoxMnoFrmLength.Text),
+                MonoSlopeSteelLineColumnHeight = double.Parse(txtBoxMnoColHt.Text),
+                MonoSlopeColumnOffset = double.Parse(txtBoxMnoColOffst.Text),
+                MonoSlopeRafterOffset = double.Parse(txtBoxMnoRftOffst.Text),
+                MonoSlopeLeftBaseOffset = double.Parse(txtBoxMnoLftBsOffst.Text),
+                MonoSlopeRightBaseOffset = double.Parse(txtBoxMnoRghtBsOffst.Text),
+
+                BracingMode = (FlangeBraceMode)cmbBoxFlngBrcMode.SelectedIndex,
+
+                Raf1SpliceNumber = raf1SpliceQuantity,
+                Raf2SpliceNumber = raf2SpliceQuantity,
+
+                EndBraceAttrib = cmbBoxEndFlangeBrce.Text,
+                GeneralBraceAttrib = cmbBoxFlangeBrace.Text,
+
+                Col1MemberAttribs = col1MemberAttribs,
+                Col1SpliceAttribs = col1SpliceAttribs,
+                Col1SpliceLengths = col1SpliceLengths,
+
+                Col2MemberAttribs = col2MemberAttribs,
+                Col2SpliceAttribs = col2SpliceAttribs,
+                Col2SpliceLengths = col2SpliceLengths,
+
+                Raf1MemberAttribs = raf1MemberAttribs,
+                Raf1SpliceAttribs = raf1SpliceAttribs,
+                Raf1SpliceLengths = raf1SpliceLengths,
+
+                Raf2MemberAttribs = raf2MemberAttribs,
+                Raf2SpliceAttribs = raf2SpliceAttribs,
+                Raf2SpliceLengths = raf2SpliceLengths,
+            };
+
+            return options;
+        }
+
+        private void btnDraw_Click(object sender, EventArgs e)
+        {
+            if (!ValidateLengthTextBoxes())
+            {
+                ErrorDialog.Show("Alert", "Inputs are not valid!", ErrorDialog.Severity.ERROR);
+                return;
+            }
+            var currentPlane = GetCurrentCorSystem().TransformFromCurrentToGlobal();
+            SetPlane();
+            Picker pickMe = new Picker();
+            ArrayList frameList = pickMe.PickPoints(Picker.PickPointEnum.PICK_TWO_POINTS, "Please choose frame direction");
+            alongFrameVector = new Vector((frameList[1] as Point) - (frameList[0] as Point));
+
+            ArrayList replicationList = pickMe.PickPoints(Picker.PickPointEnum.PICK_TWO_POINTS, "Please choose replication direction");
+            replicationVector = new Vector((replicationList[1] as Point) - (replicationList[0] as Point));
+            FramingOptions options = PopulateFramingOption(frameList[0] as Point);
+            if (imgListCmbBoxFrameMode.SelectedIndex == 0)
+            {
+                GableSetting gableSystem = new GableSetting(options);
+                gableSystem.Draw();
+            }
+            else if (imgListCmbBoxFrameMode.SelectedIndex == 1)
+            {
+                MonoSlopeSetting monoSystem = new MonoSlopeSetting(options);
+                monoSystem.Draw();
+            }
+            else
+            {
+                RadialFrameSetting radialSystem = new RadialFrameSetting(options);
+                radialSystem.Draw();
+            }
+            SetPlane(currentPlane, TeklaGeometryExtender.ReferencePlane.GLOBAL);
+            teklaModel.CommitChanges();
         }
     }
 }
