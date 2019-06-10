@@ -11,6 +11,8 @@
     using Tekla.Structures.Dialog.UIControls;
     using PEBReplicator.Frame_Types;
     using static TeklaGeometryExtender.Transformation;
+    using System.Globalization;
+    using Tekla.Structures.Datatype;
 
     /// <summary>
     /// Main Form.
@@ -127,6 +129,11 @@
                 if (!double.TryParse(txtBox.Text, out double result))
                     return false;
             }
+
+            var dList = DistanceList.Parse(txtBoxCopies.Text, CultureInfo.CurrentCulture, Tekla.Structures.Datatype.Distance.UnitType.Millimeter);
+            if (dList.Count == 0)
+                return false;
+
             return true;
         }
 
@@ -139,6 +146,7 @@
             txtBoxGblLftBsOffst.Text = "50";
             txtBoxGblRftOffst.Text = "200";
             txtBoxGblRghtBsOffst.Text = "50";
+            txtBoxCopies.Text = "2*6000";
 
             txtBoxMnoColHt.Text = "12000.00";
             txtBoxMnoColOffst.Text = "200";
@@ -491,6 +499,15 @@
             raf2SpliceAttribs.RemoveRange(raf2SpliceQuantity, raf2SpliceAttribs.Count - raf2SpliceQuantity);
             raf2SpliceLengths.RemoveRange(raf2SpliceQuantity, raf2SpliceLengths.Count - raf2SpliceQuantity);
             #endregion
+            var dList = DistanceList.Parse(txtBoxCopies.Text, CultureInfo.CurrentCulture, Tekla.Structures.Datatype.Distance.UnitType.Millimeter);
+
+            List<double> copies = new List<double>();
+
+            foreach (var distance in dList)
+            {
+                copies.Add(distance.Value);
+            }
+            copies.RemoveAll(p => p == 0);
 
             FramingOptions options = new FramingOptions()
             {
@@ -543,6 +560,7 @@
                 Raf2MemberAttribs = raf2MemberAttribs,
                 Raf2SpliceAttribs = raf2SpliceAttribs,
                 Raf2SpliceLengths = raf2SpliceLengths,
+                CopyLengths = copies
             };
 
             return options;
@@ -562,7 +580,7 @@
             alongFrameVector = new Vector((frameList[1] as Point) - (frameList[0] as Point));
 
             ArrayList replicationList = pickMe.PickPoints(Picker.PickPointEnum.PICK_TWO_POINTS, "Please choose replication direction");
-            replicationVector = new Vector((replicationList[1] as Point) - (replicationList[0] as Point));
+            replicationVector = new Vector((replicationList[1] as Point) - (replicationList[0] as Point)).GetNormal();
             FramingOptions options = PopulateFramingOption(frameList[0] as Point);
             if (imgListCmbBoxFrameMode.SelectedIndex == 0)
             {

@@ -12,6 +12,12 @@ namespace PEBReplicator.PEBComponents
         private Point startPoint;
         private Point endPoint;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="attributeFile"></param>
+        /// <param name="startPoint"></param>
+        /// <param name="endPoint"></param>
         public PEBMemberComponent(string attributeFile, Point startPoint, Point endPoint)
         {
             this.name = "Straight Member P.E.B";
@@ -20,7 +26,10 @@ namespace PEBReplicator.PEBComponents
             this.endPoint = endPoint;
             component = new Component();
         }
-       
+
+        /// <summary>
+        /// 
+        /// </summary>
         public override void Insert()
         {
             component.Number = -100000;
@@ -37,6 +46,5 @@ namespace PEBReplicator.PEBComponents
             component.Insert();
             this.ID = component.Identifier.ID;
         }
-
     }
 }

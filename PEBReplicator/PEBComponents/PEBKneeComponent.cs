@@ -2,26 +2,24 @@
 {
     using Tekla.Structures.Model;
 
-    /// <summary>
-    /// Splice connection component caller.
-    /// </summary>
-    class PEBSpliceComponent : ComponentCaller
+    class PEBKneeComponent : ComponentCaller
     {
-        private Component firstMember;
-        private Component secondMember;
+        private Component column;
+
+        private Component rafter;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="attributeFile"></param>
-        /// <param name="firstMember"></param>
-        /// <param name="secondMember"></param>
-        public PEBSpliceComponent(string attributeFile, Component firstMember, Component secondMember)
+        /// <param name="column"></param>
+        /// <param name="rafter"></param>
+        public PEBKneeComponent(string attributeFile, Component column,Component rafter)
         {
-            this.name = "P.E.B Splice Connection";
+            this.name = "Knee Connection P.E.B";
             this.attributeFile = attributeFile;
-            this.firstMember = firstMember;
-            this.secondMember = secondMember;
+            this.column = column;
+            this.rafter = rafter;
             component = new Component();
         }
 
@@ -36,8 +34,9 @@
 
             ComponentInput I = new ComponentInput();
 
-            I.AddInputObject(firstMember);
-            I.AddInputObject(secondMember);
+            I.AddInputObject(column);
+            I.AddInputObject(rafter);
+
 
             component.SetComponentInput(I);
 

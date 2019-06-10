@@ -50,14 +50,16 @@
             this.imgListCmbBoxFrameMode = new Tekla.Structures.Dialog.UIControls.ImageListComboBox();
             this.imageListFrameMode = new System.Windows.Forms.ImageList(this.components);
             this.cmbBoxFlngBrcMode = new System.Windows.Forms.ComboBox();
-            this.txtBoxCopies = new System.Windows.Forms.TextBox();
             this.txtBoxSlope = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxGnrl = new System.Windows.Forms.GroupBox();
+            this.txtBoxCopies = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.cmbBoxRidgeSplice = new System.Windows.Forms.ComboBox();
+            this.label31 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmbBoxEndFlangeBrce = new System.Windows.Forms.ComboBox();
             this.label30 = new System.Windows.Forms.Label();
@@ -165,12 +167,11 @@
             this.btnDraw = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
-            this.cmbBoxRidgeSplice = new System.Windows.Forms.ComboBox();
-            this.label31 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDim)).BeginInit();
+            this.groupBoxGnrl.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBoxRf2.SuspendLayout();
             this.groupBoxCol2.SuspendLayout();
@@ -217,7 +218,6 @@
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.imgListCmbBoxFrameMode);
             this.tabPage1.Controls.Add(this.cmbBoxFlngBrcMode);
-            this.tabPage1.Controls.Add(this.txtBoxCopies);
             this.tabPage1.Controls.Add(this.txtBoxSlope);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label3);
@@ -447,16 +447,6 @@
             this.cmbBoxFlngBrcMode.Size = new System.Drawing.Size(156, 24);
             this.cmbBoxFlngBrcMode.TabIndex = 8;
             // 
-            // txtBoxCopies
-            // 
-            this.structuresExtender.SetAttributeName(this.txtBoxCopies, null);
-            this.structuresExtender.SetAttributeTypeName(this.txtBoxCopies, null);
-            this.structuresExtender.SetBindPropertyName(this.txtBoxCopies, null);
-            this.txtBoxCopies.Location = new System.Drawing.Point(770, 53);
-            this.txtBoxCopies.Name = "txtBoxCopies";
-            this.txtBoxCopies.Size = new System.Drawing.Size(100, 22);
-            this.txtBoxCopies.TabIndex = 7;
-            // 
             // txtBoxSlope
             // 
             this.structuresExtender.SetAttributeName(this.txtBoxSlope, null);
@@ -520,12 +510,23 @@
             this.structuresExtender.SetAttributeName(this.groupBoxGnrl, null);
             this.structuresExtender.SetAttributeTypeName(this.groupBoxGnrl, null);
             this.structuresExtender.SetBindPropertyName(this.groupBoxGnrl, null);
+            this.groupBoxGnrl.Controls.Add(this.txtBoxCopies);
             this.groupBoxGnrl.Location = new System.Drawing.Point(3, 6);
             this.groupBoxGnrl.Name = "groupBoxGnrl";
             this.groupBoxGnrl.Size = new System.Drawing.Size(1165, 129);
             this.groupBoxGnrl.TabIndex = 17;
             this.groupBoxGnrl.TabStop = false;
             this.groupBoxGnrl.Text = "General";
+            // 
+            // txtBoxCopies
+            // 
+            this.structuresExtender.SetAttributeName(this.txtBoxCopies, null);
+            this.structuresExtender.SetAttributeTypeName(this.txtBoxCopies, null);
+            this.structuresExtender.SetBindPropertyName(this.txtBoxCopies, null);
+            this.txtBoxCopies.Location = new System.Drawing.Point(767, 47);
+            this.txtBoxCopies.Name = "txtBoxCopies";
+            this.txtBoxCopies.Size = new System.Drawing.Size(100, 22);
+            this.txtBoxCopies.TabIndex = 7;
             // 
             // tabPage2
             // 
@@ -555,6 +556,32 @@
             this.tabPage2.Text = "Frame Properties";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // cmbBoxRidgeSplice
+            // 
+            this.structuresExtender.SetAttributeName(this.cmbBoxRidgeSplice, null);
+            this.structuresExtender.SetAttributeTypeName(this.cmbBoxRidgeSplice, null);
+            this.structuresExtender.SetBindPropertyName(this.cmbBoxRidgeSplice, null);
+            this.cmbBoxRidgeSplice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBoxRidgeSplice.FormattingEnabled = true;
+            this.cmbBoxRidgeSplice.Items.AddRange(new object[] {
+            "Standard"});
+            this.cmbBoxRidgeSplice.Location = new System.Drawing.Point(715, 278);
+            this.cmbBoxRidgeSplice.Name = "cmbBoxRidgeSplice";
+            this.cmbBoxRidgeSplice.Size = new System.Drawing.Size(121, 24);
+            this.cmbBoxRidgeSplice.TabIndex = 34;
+            // 
+            // label31
+            // 
+            this.structuresExtender.SetAttributeName(this.label31, null);
+            this.structuresExtender.SetAttributeTypeName(this.label31, null);
+            this.label31.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.label31, null);
+            this.label31.Location = new System.Drawing.Point(619, 281);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(87, 17);
+            this.label31.TabIndex = 33;
+            this.label31.Text = "Ridge Splice";
+            // 
             // panel1
             // 
             this.structuresExtender.SetAttributeName(this.panel1, null);
@@ -574,7 +601,7 @@
             this.cmbBoxEndFlangeBrce.FormattingEnabled = true;
             this.cmbBoxEndFlangeBrce.Items.AddRange(new object[] {
             "Standard"});
-            this.cmbBoxEndFlangeBrce.Location = new System.Drawing.Point(397, 263);
+            this.cmbBoxEndFlangeBrce.Location = new System.Drawing.Point(481, 263);
             this.cmbBoxEndFlangeBrce.Name = "cmbBoxEndFlangeBrce";
             this.cmbBoxEndFlangeBrce.Size = new System.Drawing.Size(121, 24);
             this.cmbBoxEndFlangeBrce.TabIndex = 31;
@@ -585,7 +612,7 @@
             this.structuresExtender.SetAttributeTypeName(this.label30, null);
             this.label30.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label30, null);
-            this.label30.Location = new System.Drawing.Point(187, 265);
+            this.label30.Location = new System.Drawing.Point(271, 265);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(204, 17);
             this.label30.TabIndex = 30;
@@ -600,7 +627,7 @@
             this.cmbBoxFlangeBrace.FormattingEnabled = true;
             this.cmbBoxFlangeBrace.Items.AddRange(new object[] {
             "Standard"});
-            this.cmbBoxFlangeBrace.Location = new System.Drawing.Point(397, 294);
+            this.cmbBoxFlangeBrace.Location = new System.Drawing.Point(481, 294);
             this.cmbBoxFlangeBrace.Name = "cmbBoxFlangeBrace";
             this.cmbBoxFlangeBrace.Size = new System.Drawing.Size(121, 24);
             this.cmbBoxFlangeBrace.TabIndex = 19;
@@ -983,7 +1010,7 @@
             this.structuresExtender.SetAttributeTypeName(this.label29, null);
             this.label29.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label29, null);
-            this.label29.Location = new System.Drawing.Point(217, 296);
+            this.label29.Location = new System.Drawing.Point(301, 296);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(175, 17);
             this.label29.TabIndex = 18;
@@ -2017,32 +2044,6 @@
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
-            // cmbBoxRidgeSplice
-            // 
-            this.structuresExtender.SetAttributeName(this.cmbBoxRidgeSplice, null);
-            this.structuresExtender.SetAttributeTypeName(this.cmbBoxRidgeSplice, null);
-            this.structuresExtender.SetBindPropertyName(this.cmbBoxRidgeSplice, null);
-            this.cmbBoxRidgeSplice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBoxRidgeSplice.FormattingEnabled = true;
-            this.cmbBoxRidgeSplice.Items.AddRange(new object[] {
-            "Standard"});
-            this.cmbBoxRidgeSplice.Location = new System.Drawing.Point(631, 278);
-            this.cmbBoxRidgeSplice.Name = "cmbBoxRidgeSplice";
-            this.cmbBoxRidgeSplice.Size = new System.Drawing.Size(121, 24);
-            this.cmbBoxRidgeSplice.TabIndex = 34;
-            // 
-            // label31
-            // 
-            this.structuresExtender.SetAttributeName(this.label31, null);
-            this.structuresExtender.SetAttributeTypeName(this.label31, null);
-            this.label31.AutoSize = true;
-            this.structuresExtender.SetBindPropertyName(this.label31, null);
-            this.label31.Location = new System.Drawing.Point(535, 281);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(87, 17);
-            this.label31.TabIndex = 33;
-            this.label31.Text = "Ridge Splice";
-            // 
             // TeklaForm
             // 
             this.structuresExtender.SetAttributeName(this, null);
@@ -2069,6 +2070,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDim)).EndInit();
+            this.groupBoxGnrl.ResumeLayout(false);
+            this.groupBoxGnrl.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.groupBoxRf2.ResumeLayout(false);
@@ -2090,7 +2093,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ComboBox cmbBoxFlngBrcMode;
-        private System.Windows.Forms.TextBox txtBoxCopies;
         private System.Windows.Forms.TextBox txtBoxSlope;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
@@ -2223,6 +2225,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox cmbBoxRidgeSplice;
         private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.TextBox txtBoxCopies;
     }
 }
 

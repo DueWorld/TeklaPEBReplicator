@@ -96,8 +96,7 @@
             PopulateCalibratedLists();
             PopulateColRftPts();
         }
-
-
+        
         /// <summary>
         /// Calibrating all the given lengths for the ridge to be responsive.
         /// </summary>
@@ -109,9 +108,7 @@
             calibratedRaft2Lengths = CalibrateLengths(options.Raf2SpliceLengths, frameRghtRftLength);
             calibratedRaft2Lengths.Reverse();
         }
-
-
-
+        
         /// <summary>
         /// Calibrating the original lengths for the ridge to be responsive.
         /// </summary>

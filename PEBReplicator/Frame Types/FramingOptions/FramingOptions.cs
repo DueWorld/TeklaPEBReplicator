@@ -26,6 +26,7 @@
         public string GeneralBraceAttrib { get; set; }
         public string RidgeSpliceAttrib { get; set; }
         public FlangeBraceMode BracingMode { get; set; }
+        public List<double> CopyLengths { get; set; }
 
         public double GableSteelLineFullLength { get; set; }
         public double GableSteelLineHalfLength { get; set; }

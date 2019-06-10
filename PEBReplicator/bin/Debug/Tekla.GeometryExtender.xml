@@ -19,22 +19,22 @@
             Face given.
             </summary>
         </member>
-        <member name="P:TeklaGeometryExtender.FaceProperties.FacePointsGlobal">
+        <member name="P:TeklaGeometryExtender.FaceProperties.GlobalPoints">
             <summary>
             Gets all the edge points of the face in the global workplane.
             </summary>
         </member>
-        <member name="P:TeklaGeometryExtender.FaceProperties.FacePointsLocal">
+        <member name="P:TeklaGeometryExtender.FaceProperties.LocalPoints">
             <summary>
             Gets all the edge points of the face in the local workplane.
             </summary>
         </member>
-        <member name="P:TeklaGeometryExtender.FaceProperties.FaceOriginGlobal">
+        <member name="P:TeklaGeometryExtender.FaceProperties.GlobalOrigin">
             <summary>
             Gets the first point on a face in the global workplane.
             </summary>
         </member>
-        <member name="P:TeklaGeometryExtender.FaceProperties.FaceOriginLocal">
+        <member name="P:TeklaGeometryExtender.FaceProperties.LocalOrigin">
             <summary>
             Gets the first point on a face in the local workplane.
             </summary>
@@ -48,26 +48,21 @@
         <member name="M:TeklaGeometryExtender.FaceProperties.GetPointsFromFaceGlobal">
             <summary>
             Returns a list of points from a given face.
-            These points will be given in the workplane that face was picked with.
+            These points will be given in the global workplane.
             </summary>
-            <param name="face"></param>
-            <returns></returns>
         </member>
         <member name="M:TeklaGeometryExtender.FaceProperties.GetPointsFromFaceLocal">
             <summary>
             Returns a list of points from a given face.
             These points will be given in the workplane that face was picked with.
             </summary>
-            <param name="face"></param>
-            <returns></returns>
         </member>
-        <member name="M:TeklaGeometryExtender.FaceProperties.GetPointOnFaceLocal">
+        <member name="M:TeklaGeometryExtender.FaceProperties.GetLocalPointOnFace">
             <summary>
             Gets the first point on a face in the local workplane.
             </summary>
-            <returns></returns>
         </member>
-        <member name="M:TeklaGeometryExtender.FaceProperties.GetPointOnFaceGlobal">
+        <member name="M:TeklaGeometryExtender.FaceProperties.GetGlobalPointOnFace">
             <summary>
             Gets the first point on a face in the global workplane.
             </summary>
@@ -107,6 +102,13 @@
             </summary>
             <param name="component"></param>
             <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.GeometryUtils.GetPartsFromComponent(Tekla.Structures.Model.ModelObject,System.Collections.Generic.List{Tekla.Structures.Model.Part})">
+            <summary>
+            Assign component parts to the given list
+            </summary>
+            <param name="_object">Selected component as modelObject</param>
+            <param name="parts">An out list for the retrived parts</param>
         </member>
         <member name="M:TeklaGeometryExtender.GeometryUtils.IsRotationAlligned(Tekla.Structures.Model.Position.RotationEnum,Tekla.Structures.Model.Position.RotationEnum)">
             <summary>
@@ -301,14 +303,11 @@
             <summary>
             Gets all the edges of the part in the form of line segments.
             </summary>
-            <param name="part"></param>
-            <returns></returns>
         </member>
         <member name="M:TeklaGeometryExtender.PartProperties.GetFaces">
             <summary>
             Gets all faces from a part.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:TeklaGeometryExtender.PartProperties.GetFaces(TeklaGeometryExtender.ParralelFacesVaried)">
             <summary>
@@ -369,6 +368,11 @@
             <param name="part"></param>
             <returns></returns>
         </member>
+        <member name="M:TeklaGeometryExtender.PartProperties.GetBoundingBoxCenter(Tekla.Structures.Model.Solid.SolidCreationTypeEnum)">
+            <summary>
+            Get center point of part soild
+            </summary>
+        </member>
         <member name="M:TeklaGeometryExtender.PartProperties.GetThickness">
             <summary>
             get the smallest distance between parallel faces with different local Z value
@@ -386,6 +390,41 @@
             gets the max distance between parallel faces with different local Y value
             </summary>
             <returns></returns>
+        </member>
+        <member name="F:TeklaGeometryExtender.SolidProperties.solid">
+            <summary>
+            The given solid.
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.SolidProperties.#ctor(Tekla.Structures.Model.Solid)">
+            <summary>
+            Instantiates an object of solid properties from a solid.
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.SolidProperties.Faces">
+            <summary>
+            List of solid faces.
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.SolidProperties.Points">
+            <summary>
+            List of solid points.
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.SolidProperties.Edges">
+            <summary>
+            List of solid edges. Working of tekla 19.0 .
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.SolidProperties.BoundingBoxCenter">
+            <summary>
+            Get the center of solid bounding box, cosiders it's raw / cutted / fitted condition.
+            </summary>
+        </member>
+        <member name="P:TeklaGeometryExtender.SolidProperties.Lines">
+            <summary>
+            List of solid edges as lines.
+            </summary>
         </member>
         <member name="T:TeklaGeometryExtender.ReferencePlane">
             <summary>
@@ -569,6 +608,13 @@
             <param name="rotationalPosition"></param>
             <param name="teklaModel"></param>
             <returns></returns>
+        </member>
+        <member name="M:TeklaGeometryExtender.Transformation.ProjectOnOtherSpace(Tekla.Structures.Geometry3d.Vector,Tekla.Structures.Geometry3d.Vector)">
+            <summary>
+            Project the direction of vector on line space of other vector, return ZERO vector if the two vectors perpendicular
+            </summary>
+            <param name="projected">Vector to be projected</param>
+            <param name="lineVector">The line of the vector space</param>
         </member>
         <member name="T:TeklaGeometryExtender.Properties.Resources">
             <summary>

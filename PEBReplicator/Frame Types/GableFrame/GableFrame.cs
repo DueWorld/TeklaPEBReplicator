@@ -28,6 +28,11 @@
         private List<Component> kneeConnections;
         private Component ridgeSplice;
 
+        /// <summary>
+        /// Instantiate a gable frame by the framing options and gable frame geometric points.
+        /// </summary>
+        /// <param name="options"></param>
+        /// <param name="geometricFrame"></param>
         public GableFrame(FramingOptions options, GableFrameGeoShape geometricFrame)
         {
             this.options = options;
@@ -45,6 +50,9 @@
             teklaModel = new Model();
         }
 
+        /// <summary>
+        /// Draw steel lines.
+        /// </summary>
         private void DrawSteelLine()
         {
             ControlLine line = new ControlLine(new Tekla.Structures.Geometry3d.LineSegment(geometricFrame.SteelLineLeftBase, geometricFrame.SteelLineColRaftLftIntrsct), true);
@@ -58,7 +66,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Draw the entire frame.
         /// </summary>
         public void DrawFrame()
         {
@@ -76,11 +84,19 @@
             ModifyPEBMembers();
             AssignSpliceConnections();
             AssignRidgeSplice();
+            AssignPurlinNodes();
             SetPlane(currentPlane, TeklaGeometryExtender.ReferencePlane.GLOBAL);
         }
 
         /// <summary>
         /// 
+        /// </summary>
+        private void AssignPurlinNodes()
+        {
+
+        }
+        /// <summary>
+        /// Modify P.E.B member.
         /// </summary>
         private void ModifyPEBMembers()
         {
@@ -107,7 +123,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Draw the PEB member.
         /// </summary>
         private void DrawPEBMembers()
         {
@@ -155,7 +171,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Assigning base plate connection.
         /// </summary>
         private void AssignBasePlate()
         {
@@ -173,7 +189,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Assigning splice connection.
         /// </summary>
         private void AssignSpliceConnections()
         {
@@ -184,18 +200,12 @@
 
         }
 
+        /// <summary>
+        /// Assigning ridge connection.
+        /// </summary>
         private void AssignRidgeSplice()
         {
-            ExtractRelevantParts(leftRafterComponents.Last(), out List<Part> outerFlanges, out List<Part> webs, out List<Part> innerFlanges);
-            ExtractRelevantParts(rightRafterComponents.First(), out List<Part> outerFlanges2, out List<Part> webs2, out List<Part> innerFlanges2);
-            List<Part> givens = new List<Part>();
-            givens.Add(outerFlanges.Last());
-            givens.Add(webs.Last());
-            givens.Add(innerFlanges.Last());
-            givens.Add(outerFlanges2.First());
-            givens.Add(webs2.First());
-            givens.Add(innerFlanges2.First());
-            PEBSpliceComponent spliceComp = new PEBSpliceComponent(options.RidgeSpliceAttrib, givens);
+            PEBSpliceComponent spliceComp = new PEBSpliceComponent(options.RidgeSpliceAttrib, leftRafterComponents.Last(), rightRafterComponents.First());
             spliceComp.SetAttribute("AlignType", 1);
             spliceComp.Insert();
             teklaModel.CommitChanges();
@@ -203,7 +213,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Assign splice connections for each element.
         /// </summary>
         /// <param name="elementComponents"></param>
         /// <param name="attributes"></param>
@@ -221,24 +231,20 @@
 
             for (int i = 0; i < elementComponents.Count - 1; i++)
             {
-                ExtractRelevantParts(elementComponents[i], out List<Part> outerFlanges, out List<Part> webs, out List<Part> innerFlanges);
-                ExtractRelevantParts(elementComponents[i + 1], out List<Part> outerFlanges2, out List<Part> webs2, out List<Part> innerFlanges2);
-                List<Part> givens = new List<Part>();
-                givens.Add(outerFlanges.Last());
-                givens.Add(webs.Last());
-                givens.Add(innerFlanges.Last());
-                givens.Add(outerFlanges2.First());
-                givens.Add(webs2.First());
-                givens.Add(innerFlanges2.First());
-                spliceComp = new PEBSpliceComponent(attributes[i], givens);
+                spliceComp = new PEBSpliceComponent(attributes[i], elementComponents[i], elementComponents[i + 1]);
                 spliceComp.Insert();
                 teklaModel.CommitChanges();
                 splices.Add(spliceComp.Component);
             }
-
-
         }
 
+        /// <summary>
+        /// Extract relevant parts from components.
+        /// </summary>
+        /// <param name="Comp"></param>
+        /// <param name="outerFlanges"></param>
+        /// <param name="webs"></param>
+        /// <param name="innerFlanges"></param>
         private void ExtractRelevantParts(Component Comp, out List<Part> outerFlanges, out List<Part> webs, out List<Part> innerFlanges)
         {
             List<Part> partList = new List<Part>();
@@ -354,12 +360,21 @@
         }
 
         /// <summary>
-        /// 
+        /// Assigning Knee connection.
         /// </summary>
         private void AssignKneeConnections()
         {
+            Component column = leftColumnComponents.Last();
+            Component rafter = leftRafterComponents.First();
+            PEBKneeComponent kneeComponentLeft = new PEBKneeComponent(options.Col1KneeAttrib, column, rafter);
+            kneeComponentLeft.Insert();
+            kneeConnections.Add(kneeComponentLeft.Component);
 
+            column = rightColumnComponents.Last();
+            rafter = rightRafterComponents.Last();
+            PEBKneeComponent kneeComponentright = new PEBKneeComponent(options.Col2KneeAttrib, column, rafter);
+            kneeComponentright.Insert();
+            kneeConnections.Add(kneeComponentright.Component);
         }
-
     }
 }

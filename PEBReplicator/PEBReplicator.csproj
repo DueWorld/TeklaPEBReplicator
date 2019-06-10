@@ -91,6 +91,7 @@
     <Compile Include="PEBComponents\PEBFlangedBraceComponent.cs" />
     <Compile Include="PEBComponents\PEBBplComponent.cs" />
     <Compile Include="PEBComponents\PEBComponent.cs" />
+    <Compile Include="PEBComponents\PEBKneeComponent.cs" />
     <Compile Include="PEBComponents\PEBMemberComponent.cs" />
     <Compile Include="PEBComponents\PEBSpliceComponent.cs" />
     <Compile Include="PEBComponents\PurlinDrawer.cs" />
