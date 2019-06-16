@@ -7,6 +7,7 @@
     using Tekla.Structures.Geometry3d;
     using Tekla.Structures.Model;
     using static TeklaGeometryExtender.Transformation;
+    using TeklaGeometryExtender;
 
     /// <summary>
     /// A class to draw a single gable frame with all its details.
@@ -27,6 +28,9 @@
         private List<Component> leftRafterSpliceConnections;
         private List<Component> kneeConnections;
         private Component ridgeSplice;
+        private PurlinGeoShape purlinDrawer;
+
+        public PurlinGeoShape PurlinDrawer => purlinDrawer;
 
         /// <summary>
         /// Instantiate a gable frame by the framing options and gable frame geometric points.
@@ -84,17 +88,42 @@
             ModifyPEBMembers();
             AssignSpliceConnections();
             AssignRidgeSplice();
-            AssignPurlinNodes();
             SetPlane(currentPlane, TeklaGeometryExtender.ReferencePlane.GLOBAL);
+            AssignPurlinNodes();
         }
 
         /// <summary>
-        /// 
+        /// Assign this frame's purlin nodes.
         /// </summary>
         private void AssignPurlinNodes()
         {
+            options.EaveExtendedLeft = true;
+            options.EaveExtendedRight = true;
 
+            double leftKneeExtension = 100d;
+            double rightKneeExtension = 100d;
+
+            kneeConnections[0].GetAttribute("covPlEdge", ref leftKneeExtension);
+            kneeConnections[1].GetAttribute("covPlEdge", ref rightKneeExtension);
+
+            options.LeftEaveLength = leftKneeExtension;
+            options.RightEaveLength = rightKneeExtension;
+
+            if (leftKneeExtension == 0)
+            {
+                options.EaveExtendedLeft = false;
+                options.LeftEaveOffset = 0;
+            }
+
+            if (rightKneeExtension == 0)
+            {
+                options.EaveExtendedRight = false;
+                options.RightEaveOffset = 0;
+            }
+
+            purlinDrawer = new PurlinGeoShape(leftRafterComponents, rightRafterComponents, leftColumnComponents, rightColumnComponents, geometricFrame, options);
         }
+
         /// <summary>
         /// Modify P.E.B member.
         /// </summary>
@@ -358,6 +387,7 @@
 
             });
         }
+
 
         /// <summary>
         /// Assigning Knee connection.

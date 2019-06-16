@@ -11,3 +11,5 @@ E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\bin\Debug\Tekla.Geometr
 E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\bin\Debug\Tekla.GeometryExtender.xml
 E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\bin\Debug\Tekla.GeometryExtender.dll.config
 E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\obj\Debug\PEBReplicator.csprojResolveAssemblyReference.cache
+E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\bin\Debug\System.ValueTuple.dll
+E:\Tech\Tekla API Repos\TeklaPEBReplicator\PEBReplicator\bin\Debug\System.ValueTuple.xml

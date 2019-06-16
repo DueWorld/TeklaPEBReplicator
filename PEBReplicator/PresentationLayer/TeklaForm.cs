@@ -69,6 +69,7 @@
 
         }
 
+
         private void PopulateMonoSlopeCntrls()
         {
             monoSlopeRelated.Add(txtBoxMnoColHt);
@@ -77,7 +78,6 @@
             monoSlopeRelated.Add(txtBoxMnoLftBsOffst);
             monoSlopeRelated.Add(txtBoxMnoRftOffst);
             monoSlopeRelated.Add(txtBoxMnoRghtBsOffst);
-
         }
 
         private void PopulateGableRelatedCntrls()
@@ -120,6 +120,10 @@
             lengthTextBoxes.Add(txtBoxRft1SplLn5);
             lengthTextBoxes.Add(txtBoxRft1SplLn6);
             lengthTextBoxes.Add(txtBoxSlope);
+            lengthTextBoxes.Add(txtBoxHorzDist);
+            lengthTextBoxes.Add(txtBoxLeftEaveOffst);
+            lengthTextBoxes.Add(txtBoxRightEaveOffset);
+
         }
 
         private bool ValidateLengthTextBoxes()
@@ -132,6 +136,11 @@
 
             var dList = DistanceList.Parse(txtBoxCopies.Text, CultureInfo.CurrentCulture, Tekla.Structures.Datatype.Distance.UnitType.Millimeter);
             if (dList.Count == 0)
+                return false;
+
+            if (txtBoxPrlnProf.Text == string.Empty)
+                return false;
+            if (txtBoxPrlnMtrl.Text == string.Empty)
                 return false;
 
             return true;
@@ -159,7 +168,6 @@
             txtBoxCol1SplLn2.Text = "6000";
             txtBoxCol1SplLn3.Text = "6000";
 
-
             txtBoxCol2SplLn1.Text = "6000";
             txtBoxCol2SplLn2.Text = "6000";
             txtBoxCol2SplLn3.Text = "6000";
@@ -177,7 +185,11 @@
             txtBoxRft1SplLn4.Text = "6000";
             txtBoxRft1SplLn5.Text = "6000";
             txtBoxRft1SplLn6.Text = "6000";
-
+            txtBoxLeftEaveOffst.Text = "50";
+            txtBoxRightEaveOffset.Text = "50";
+            txtBoxHorzDist.Text = "1500";
+            txtBoxPrlnMtrl.Text = "S235JR";
+            txtBoxPrlnProf.Text = "Z200/1.5";
         }
 
         private void Hide(List<Control> list)
@@ -209,6 +221,7 @@
         private void AssignComboBox()
         {
             #region Add range
+            this.cmbBoxClipAttribute.Items.AddRange(PEBFlangedBraceAttrs.ToArray());
             this.cmbBoxCol1SplAFile1.Items.AddRange(PEBSpliceConnectionAttrs.ToArray());
             this.cmbBoxCol1SplAFile2.Items.AddRange(PEBSpliceConnectionAttrs.ToArray());
             this.cmbBoxCol1SplAFile3.Items.AddRange(PEBSpliceConnectionAttrs.ToArray());
@@ -262,7 +275,7 @@
             #endregion
 
             #region Initialize Standard
-
+            this.cmbBoxRight.SelectedIndex = 0;
             this.cmbBoxCol1SplAFile1.SelectedIndex = 0;
             this.cmbBoxCol1SplAFile2.SelectedIndex = 0;
             this.cmbBoxCol1SplAFile3.SelectedIndex = 0;
@@ -310,7 +323,7 @@
             this.cmbBoxRft2AFile5.SelectedIndex = 0;
             this.cmbBoxRft2AFile6.SelectedIndex = 0;
             this.cmbBoxRft2AFile7.SelectedIndex = 0;
-
+            this.cmbBoxLeft.SelectedIndex = 0;
             this.cmbBoxEndFlangeBrce.SelectedIndex = 0;
             this.cmbBoxFlangeBrace.SelectedIndex = 0;
             this.cmbBoxFlngBrcMode.SelectedIndex = 0;
@@ -319,6 +332,7 @@
             this.cmbBoxSpliceNoRft1.SelectedIndex = 0;
             this.cmbBoxSpliceNoRft2.SelectedIndex = 0;
             this.cmbBoxRidgeSplice.SelectedIndex = 0;
+            this.cmbBoxClipAttribute.SelectedIndex = 0;
             #endregion
         }
 
@@ -499,7 +513,10 @@
             raf2SpliceAttribs.RemoveRange(raf2SpliceQuantity, raf2SpliceAttribs.Count - raf2SpliceQuantity);
             raf2SpliceLengths.RemoveRange(raf2SpliceQuantity, raf2SpliceLengths.Count - raf2SpliceQuantity);
             #endregion
+
             var dList = DistanceList.Parse(txtBoxCopies.Text, CultureInfo.CurrentCulture, Tekla.Structures.Datatype.Distance.UnitType.Millimeter);
+            var flagOfCoverRight = cmbBoxRight.SelectedIndex == 0 ? true : false;
+            var flagOfCoverLeft = cmbBoxLeft.SelectedIndex == 0 ? true : false;
 
             List<double> copies = new List<double>();
 
@@ -560,6 +577,14 @@
                 Raf2MemberAttribs = raf2MemberAttribs,
                 Raf2SpliceAttribs = raf2SpliceAttribs,
                 Raf2SpliceLengths = raf2SpliceLengths,
+                LeftEaveOffset = double.Parse(txtBoxLeftEaveOffst.Text),
+                RightEaveOffset = double.Parse(txtBoxRightEaveOffset.Text),
+                HorizontalDistance = double.Parse(txtBoxHorzDist.Text),
+                PurlinSection = txtBoxPrlnProf.Text,
+                PurlinMaterial = txtBoxPrlnMtrl.Text,
+                AtCoverLeft = flagOfCoverLeft,
+                AtCoverRight = flagOfCoverRight,
+                ClipAngleAttrib = cmbBoxClipAttribute.Text,
                 CopyLengths = copies
             };
 
@@ -573,6 +598,7 @@
                 ErrorDialog.Show("Alert", "Inputs are not valid!", ErrorDialog.Severity.ERROR);
                 return;
             }
+
             var currentPlane = GetCurrentCorSystem().TransformFromCurrentToGlobal();
             SetPlane();
             Picker pickMe = new Picker();
@@ -599,6 +625,16 @@
             }
             SetPlane(currentPlane, TeklaGeometryExtender.ReferencePlane.GLOBAL);
             teklaModel.CommitChanges();
+        }
+
+        private void profileCatalog1_SelectionDone(object sender, EventArgs e)
+        {
+            txtBoxPrlnProf.Text = profileCatalog1.SelectedProfile;
+        }
+
+        private void materialCatalog1_SelectionDone(object sender, EventArgs e)
+        {
+            txtBoxPrlnMtrl.Text = materialCatalog1.SelectedMaterial;
         }
     }
 }

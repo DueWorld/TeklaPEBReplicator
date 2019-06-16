@@ -168,6 +168,11 @@
             <param name="angleInDeg"></param>
             <returns></returns>
         </member>
+        <member name="M:TeklaGeometryExtender.GeometryUtils.LineSegmentOnPlane(Tekla.Structures.Geometry3d.LineSegment,Tekla.Structures.Geometry3d.GeometricPlane,System.Double)">
+            <summary>
+            Check if line segment located withen given plane.
+            </summary>
+        </member>
         <member name="T:TeklaGeometryExtender.PartFunctionExtender">
             <summary>
             Class extending the part for functionality.
@@ -615,6 +620,41 @@
             </summary>
             <param name="projected">Vector to be projected</param>
             <param name="lineVector">The line of the vector space</param>
+        </member>
+        <member name="M:TeklaGeometryExtender.XIntersection.Intersect(Tekla.Structures.Geometry3d.LineSegment,Tekla.Structures.Geometry3d.LineSegment)">
+            <summary>
+            Intersection Point between two line segment, return null if parallel or no intersection.
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.XIntersection.Intersect(Tekla.Structures.Geometry3d.LineSegment,Tekla.Structures.Geometry3d.Line)">
+            <summary>
+            Intersection Point between line segment and line, return null if parallel or no intersection.
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.XIntersection.Intersect(Tekla.Structures.Model.Solid,Tekla.Structures.Geometry3d.GeometricPlane)">
+            <summary>
+            Intersection points between a solid-geometeric plane, if solid line settles on plane, it considers intersected. Returns null if not intersected.
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.XIntersection.Intersect(System.Collections.Generic.List{Tekla.Structures.Geometry3d.Line},Tekla.Structures.Geometry3d.GeometricPlane)">
+            <summary>
+            Intersection points between a lines-geometeric plane, if line settles on plane, it considers intersected, return null if not intersected.
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.XIntersection.Intersect(Tekla.Structures.Model.Solid,Tekla.Structures.Model.Plane)">
+            <summary>
+            Intersection points between a solid-plane, if solid line settles on the plane, it considers intersected. Returns null if not intersected.
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.XIntersection.Intersect(Tekla.Structures.Model.Solid,Tekla.Structures.Geometry3d.Point,Tekla.Structures.Geometry3d.Vector)">
+            <summary>
+            Intersection points between line-solid, line is defined by a point and direction.
+            </summary>
+        </member>
+        <member name="M:TeklaGeometryExtender.XIntersection.Intersect(Tekla.Structures.Model.Solid,Tekla.Structures.Geometry3d.Line)">
+            <summary>
+            Intersection points between line-solid.
+            </summary>
         </member>
         <member name="T:TeklaGeometryExtender.Properties.Resources">
             <summary>

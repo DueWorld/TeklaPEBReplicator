@@ -28,6 +28,8 @@
         private double frameHalfLength;
         private double frameLftRftLength;
         private double frameRghtRftLength;
+        private double steelLineLeftRafterLength;
+        private double steelLineRightRafterLength;
 
         private Point steelLineLeftBase;
         private Point steelLineColRaftLftIntrsct;
@@ -50,17 +52,27 @@
         private List<Point> leftRfterPts;
         private List<Point> rightRfterPts;
         private List<Point> rightColPts;
+        private List<Point> leftRafterPurlinPts;
+        private List<Point> rightRafterPurlinPts;
 
         public List<Point> LeftColumnPts => leftColPts;
         public List<Point> LeftRafterPts => leftRfterPts;
         public List<Point> RightRafterPts => rightRfterPts;
         public List<Point> RightColumnPts => rightColPts;
+        public List<Point> LeftRafterPurlinPts => leftRafterPurlinPts;
+        public List<Point> RightRafterPurlinPts => rightRafterPurlinPts;
 
         public Point SteelLineLeftBase => steelLineLeftBase;
         public Point SteelLineColRaftLftIntrsct => steelLineColRaftLftIntrsct;
         public Point SteelLineRidgePoint => steelLineRidgePoint;
         public Point SteelLineColRafRghtIntrsct => steelLineColRafRghtIntrsct;
         public Point SteelLineRightBase => steelLineRightBase;
+
+        public Point FrameLeftBase => frameLeftBase;
+        public Point FrameRightBase => frameRightBase;
+        public Point FrameColRftLftIntrsct => frameColRftLftIntrsct;
+        public Point FrameRidgePoint => frameRidgePoint;
+        public Point FrameColRftRghtIntrsct => frameColRftRghtIntrsct;
 
         public double FrameLeftColumnHeight => frameLeftColumnHeight;
         public double FrameRightColumnHeight => frameRightColumnHeight;
@@ -71,6 +83,8 @@
         public double FrameHalfLength => frameHalfLength;
         public double FrameLftRftLength => frameLftRftLength;
         public double FrameRghtRftLength => frameRghtRftLength;
+        public double SteelLineLeftRafterLength => steelLineLeftRafterLength;
+        public double SteelLineRightRafterLength => steelLineRightRafterLength;
 
         public FramingOptions Options { get => options; set => options = value; }
 
@@ -86,6 +100,9 @@
             this.rightColPts = new List<Point>();
             this.leftRfterPts = new List<Point>();
             this.rightRfterPts = new List<Point>();
+            this.leftRafterPurlinPts = new List<Point>();
+            this.rightRafterPurlinPts = new List<Point>();
+
 
             this.calibratedCol1Lengths = new List<double>();
             this.calibratedCol2Lengths = new List<double>();
@@ -96,7 +113,7 @@
             PopulateCalibratedLists();
             PopulateColRftPts();
         }
-        
+
         /// <summary>
         /// Calibrating all the given lengths for the ridge to be responsive.
         /// </summary>
@@ -108,7 +125,7 @@
             calibratedRaft2Lengths = CalibrateLengths(options.Raf2SpliceLengths, frameRghtRftLength);
             calibratedRaft2Lengths.Reverse();
         }
-        
+
         /// <summary>
         /// Calibrating the original lengths for the ridge to be responsive.
         /// </summary>
@@ -159,10 +176,12 @@
             frameRightBase = frameLeftBase.Translate(frameVector * frameTotalLength);
             frameLeftColumnHeight = Distance.PointToPoint(frameLeftBase, frameColRftLftIntrsct);
             frameRightColumnHeight = Distance.PointToPoint(frameRightBase, frameColRftRghtIntrsct);
-            frameLftRftLength = Distance.PointToPoint(frameRidgePoint, frameColRftLftIntrsct);
+             frameLftRftLength = Distance.PointToPoint(frameRidgePoint, frameColRftLftIntrsct);
             frameRghtRftLength = Distance.PointToPoint(frameRidgePoint, frameColRftRghtIntrsct);
             leftRftVector = new Vector(frameRidgePoint - frameColRftLftIntrsct).GetNormal();
             rightRftVector = new Vector(frameColRftRghtIntrsct - frameRidgePoint).GetNormal();
+            steelLineLeftRafterLength = Distance.PointToPoint(steelLineColRaftLftIntrsct, steelLineRidgePoint);
+            steelLineRightRafterLength = Distance.PointToPoint(steelLineRidgePoint, steelLineColRafRghtIntrsct);
         }
 
         /// <summary>

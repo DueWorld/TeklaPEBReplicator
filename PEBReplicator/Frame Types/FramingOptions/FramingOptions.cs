@@ -25,6 +25,7 @@
         public string EndBraceAttrib { get; set; }
         public string GeneralBraceAttrib { get; set; }
         public string RidgeSpliceAttrib { get; set; }
+        public string ClipAngleAttrib { get; set; }
         public FlangeBraceMode BracingMode { get; set; }
         public List<double> CopyLengths { get; set; }
 
@@ -35,8 +36,7 @@
         public double GableRafterOffset { get; set; }
         public double GableLeftBaseOffset { get; set; }
         public double GableRightBaseOffset { get; set; }
-
-
+        
         public double MonoSlopeSteelLineFullLength { get; set; }
         public double MonoSlopeSteelLineColumnHeight { get; set; }
         public double MonoSlopeColumnOffset { get; set; }
@@ -52,12 +52,14 @@
         public List<double> Col1SpliceLengths { get; set; }
         public List<string> Col1SpliceAttribs { get; set; }
         public List<string> Col1MemberAttribs { get; set; }
+
         public string Col1KneeAttrib { get; set; }
         public string Col1BplAttrib { get; set; }
 
         public List<double> Col2SpliceLengths { get; set; }
         public List<string> Col2SpliceAttribs { get; set; }
         public List<string> Col2MemberAttribs { get; set; }
+
         public string Col2KneeAttrib { get; set; }
         public string Col2BplAttrib { get; set; }
 
@@ -68,5 +70,22 @@
         public List<double> Raf2SpliceLengths { get; set; }
         public List<string> Raf2SpliceAttribs { get; set; }
         public List<string> Raf2MemberAttribs { get; set; }
+
+        public double LeftEaveOffset { get; set; }
+        public double RightEaveOffset { get; set; }
+
+        public double LeftEaveLength { get; set; }
+        public double RightEaveLength { get; set; }
+
+        public double HorizontalDistance { get; set; }
+
+        public bool AtCoverRight { get; set; }
+        public bool AtCoverLeft { get; set; }
+
+        public bool EaveExtendedLeft { get; set; }
+        public bool EaveExtendedRight { get; set; }
+
+        public string PurlinSection { get; set; }
+        public string PurlinMaterial { get; set; }
     }
 }
