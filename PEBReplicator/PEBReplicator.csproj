@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="Frame Types\FramingOptions\FramingOptions.cs" />
     <Compile Include="Frame Types\GableFrame\GableFrame.cs" />
+    <Compile Include="Frame Types\GableFrame\MonoPurlinGeoShape.cs" />
     <Compile Include="Frame Types\GableFrame\PurlinGeoShape.cs" />
     <Compile Include="Frame Types\MonoSlope\MonoSlopeFrame.cs" />
     <Compile Include="Frame Types\MonoSlope\MonoSlopeSetting.cs" />

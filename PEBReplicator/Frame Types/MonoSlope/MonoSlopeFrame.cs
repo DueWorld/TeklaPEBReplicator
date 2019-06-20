@@ -9,6 +9,7 @@
     using Tekla.Structures.Model;
     using TeklaGeometryExtender;
     using static TeklaGeometryExtender.Transformation;
+    using PEBReplicator.Frame_Types;
 
     class MonoSlopeFrame
     {
@@ -23,9 +24,9 @@
         private List<Component> leftColumnSpliceConnections;
         private List<Component> rafterSpliceConnections;
         private List<Component> kneeConnections;
-        private PurlinGeoShape purlinDrawer;
+        private MonoPurlinGeoShape purlinDrawer;
 
-        public PurlinGeoShape PurlinDrawer => purlinDrawer;
+        public MonoPurlinGeoShape PurlinDrawer => purlinDrawer;
 
         /// <summary>
         /// Instantiate a gable frame by the framing options and gable frame geometric points.
@@ -87,31 +88,31 @@
         /// </summary>
         private void AssignPurlinNodes()
         {
-            //options.EaveExtendedLeft = true;
-            //options.EaveExtendedRight = true;
+            options.EaveExtendedLeft = true;
+            options.EaveExtendedRight = true;
 
-            //double leftKneeExtension = 100d;
-            //double rightKneeExtension = 100d;
+            double leftKneeExtension = 100d;
+            double rightKneeExtension = 100d;
 
-            //kneeConnections[0].GetAttribute("covPlEdge", ref leftKneeExtension);
-            //kneeConnections[1].GetAttribute("covPlEdge", ref rightKneeExtension);
+            kneeConnections[0].GetAttribute("covPlEdge", ref leftKneeExtension);
+            kneeConnections[1].GetAttribute("covPlEdge", ref rightKneeExtension);
 
-            //options.LeftEaveLength = leftKneeExtension;
-            //options.RightEaveLength = rightKneeExtension;
+            options.LeftEaveLength = leftKneeExtension;
+            options.RightEaveLength = rightKneeExtension;
 
-            //if (leftKneeExtension == 0)
-            //{
-            //    options.EaveExtendedLeft = false;
-            //    options.LeftEaveOffset = 0;
-            //}
+            if (leftKneeExtension == 0)
+            {
+                options.EaveExtendedLeft = false;
+                options.LeftEaveOffset = 0;
+            }
 
-            //if (rightKneeExtension == 0)
-            //{
-            //    options.EaveExtendedRight = false;
-            //    options.RightEaveOffset = 0;
-            //}
+            if (rightKneeExtension == 0)
+            {
+                options.EaveExtendedRight = false;
+                options.RightEaveOffset = 0;
+            }
 
-            //purlinDrawer = new PurlinGeoShape(rafterComponents, rightRafterComponents, leftColumnComponents, rightColumnComponents, geometricFrame, options);
+            purlinDrawer = new MonoPurlinGeoShape(rafterComponents,leftColumnComponents, rightColumnComponents, geometricFrame, options);
         }
 
         /// <summary>

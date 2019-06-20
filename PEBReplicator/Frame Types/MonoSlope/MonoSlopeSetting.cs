@@ -62,7 +62,7 @@ namespace PEBReplicator.Frame_Types
                 gableFrame.DrawFrame();
                 frames.Add(gableFrame);
             }
-           //DrawPurlins();
+            DrawPurlins();
         }
 
         /// <summary>
@@ -106,26 +106,6 @@ namespace PEBReplicator.Frame_Types
                 beamList.Add((finalPurlins[i], frames.Last().PurlinDrawer.LeftRfterValuePair[i].component));
             }
             purlinSettingLeftRafter.Add(beamList);
-            //Right Purlins:
-
-            size = frames[0].PurlinDrawer.RightRfterPts.Count;
-            beam = new Beam();
-            beam.Profile.ProfileString = options.PurlinSection;
-            beam.Material.MaterialString = options.PurlinMaterial;
-            beam.Position.Depth = Position.DepthEnum.FRONT;
-            beam.Position.RotationOffset = ToDegree(-slopeAngleRad);
-
-            for (int i = 0; i < frames.Count - 1; i++)
-            {
-                for (int j = 0; j < size; j++)
-                {
-                    beam.StartPoint = frames[i + 1].PurlinDrawer.RightRfterPts[j];
-                    beam.EndPoint = frames[i].PurlinDrawer.RightRfterPts[j];
-                    beam.Insert();
-                    new Model().CommitChanges();
-                }
-            }
-
         }
 
         /// <summary>
