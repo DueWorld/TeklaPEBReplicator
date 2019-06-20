@@ -163,7 +163,7 @@
             frameVector = options.FrameVector.GetNormal();
             steelLineLeftBase = options.Origin;
 
-            steelLineColRaftLftIntrsct = steelLineLeftBase.Translate(upDirectionVector * options.MonoSlopeSteelLineColumnHeight);
+            steelLineColRaftLftIntrsct = steelLineLeftBase.Translate(upDirectionVector * options.GableSteelLineColumnHeight);
             steelLineRidgePoint = (steelLineColRaftLftIntrsct.Translate(frameVector * options.GableSteelLineHalfLength)).Translate(upDirectionVector * steelLineSlopeHeight);
             steelLineColRafRghtIntrsct = steelLineColRaftLftIntrsct.Translate(frameVector * options.GableSteelLineFullLength);
             steelLineRightBase = steelLineLeftBase.Translate(frameVector * options.GableSteelLineFullLength);
@@ -173,10 +173,10 @@
             frameColRftLftIntrsct = frameRidgePoint.Translate(-1 * upDirectionVector * frameSlopeHeight).Translate(-1 * frameVector * frameHalfLength);
 
             frameColRftRghtIntrsct = frameColRftLftIntrsct.Translate(frameVector * frameTotalLength);
-            frameRightBase = frameLeftBase.Translate(frameVector * frameTotalLength);
+            frameRightBase = steelLineRightBase.Translate(frameVector * -1 * options.GableColumnOffset).Translate(upDirectionVector * options.GableRightBaseOffset);
             frameLeftColumnHeight = Distance.PointToPoint(frameLeftBase, frameColRftLftIntrsct);
             frameRightColumnHeight = Distance.PointToPoint(frameRightBase, frameColRftRghtIntrsct);
-             frameLftRftLength = Distance.PointToPoint(frameRidgePoint, frameColRftLftIntrsct);
+            frameLftRftLength = Distance.PointToPoint(frameRidgePoint, frameColRftLftIntrsct);
             frameRghtRftLength = Distance.PointToPoint(frameRidgePoint, frameColRftRghtIntrsct);
             leftRftVector = new Vector(frameRidgePoint - frameColRftLftIntrsct).GetNormal();
             rightRftVector = new Vector(frameColRftRghtIntrsct - frameRidgePoint).GetNormal();

@@ -59,16 +59,9 @@
             radialRelated = new List<Control>();
             monoSlopeRelated = new List<Control>();
             gableRelated = new List<Control>();
-            PopulateRadial();
             PopulateGableRelatedCntrls();
             PopulateMonoSlopeCntrls();
         }
-
-        private void PopulateRadial()
-        {
-
-        }
-
 
         private void PopulateMonoSlopeCntrls()
         {
@@ -383,16 +376,6 @@
                 this.btnRft2.Visible = false;
 
             }
-            else
-            {
-                UnHide(radialRelated);
-                Hide(monoSlopeRelated);
-                Hide(monoSlopeRelated);
-                this.pictureBoxDim.Image = global::PEBReplicator.Properties.Resources.r002;
-                this.btnRft2.Visible = false;
-                this.groupBoxRf2.Visible = false;
-
-            }
         }
 
         private void InitializeFrameProp()
@@ -617,11 +600,6 @@
             {
                 MonoSlopeSetting monoSystem = new MonoSlopeSetting(options);
                 monoSystem.Draw();
-            }
-            else
-            {
-                RadialFrameSetting radialSystem = new RadialFrameSetting(options);
-                radialSystem.Draw();
             }
             SetPlane(currentPlane, TeklaGeometryExtender.ReferencePlane.GLOBAL);
             teklaModel.CommitChanges();

@@ -445,7 +445,6 @@
             this.imageListFrameMode.TransparentColor = System.Drawing.Color.Transparent;
             this.imageListFrameMode.Images.SetKeyName(0, "GableFrame.PNG");
             this.imageListFrameMode.Images.SetKeyName(1, "Mono.PNG");
-            this.imageListFrameMode.Images.SetKeyName(2, "CurvedDistanceWeb.png");
             // 
             // label1
             // 
